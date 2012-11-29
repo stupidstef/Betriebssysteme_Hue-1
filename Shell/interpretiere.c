@@ -26,7 +26,6 @@ void do_execvp(int argc, char **args){
 }
 
 int interpretiere_pipeline(Kommando k){
-  /* NOT IMPLEMENTED */
 
 	return 0;
 }
@@ -120,6 +119,14 @@ int interpretiere(Kommando k, int forkexec){
       }
     }
     return status;
+  case K_PIPE:
+	{
+	  Liste l = k->u.sequenz.liste;
+      while(!listeIstleer(l)){
+		  
+	  }
+	}
+	return status;
   default:
     fputs("unbekannter Kommandotyp, Bearbeitung nicht implementiert\n", stderr);
     break;

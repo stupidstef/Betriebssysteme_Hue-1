@@ -139,6 +139,8 @@ void kommandoZeigen1 ( Kommando k, int ebene ) {
       einruecken(ebene);
       /* Typ anzeigen */
       switch(k->typ){
+	  case K_EINFACH: break;
+	  case K_LEER: break;
       case K_PIPE:
 	fprintf(stderr, "<Pipe-Kommando>%c \n", k->endeabwarten ? ' ' : '&');
 	break;
