@@ -92,8 +92,9 @@ int main(int argc, char *argv[]){
         fprintf(stderr, "Status: %d\n", status);
       kommandoLoeschen(k);
     }
-    else
+    else {
       fputs("Fehlerhaftes Kommando\n", stderr);
+    }
     wortspeicherLeeren(wsp);
   }
 }

@@ -25,8 +25,43 @@ void do_execvp(int argc, char **args){
   exit(1);
 }
 
-int interpretiere_pipeline(Kommando k){
+int interpretiere_pipeline(Liste l, int forkexec){
+	
+	int pid;
+	int fd[2];
+	Kommando k = listeKopf(l);
 
+	
+		// Wir erstellen die Pipe. Tritt dabei ein Fehler auf, gibt die
+        // Funktion -1 zurueck, so dass wir schon hier moegliche Fehler
+        // abfangen und behandeln koennen.
+        if (pipe(fd) < 0)
+                fprintf(stderr, "Fehler beim Erstellen der pipe()");
+ 
+        // Ein Kindprozess wird erstellt.
+        if ((pid = fork()) > 0) {
+                // Im Elternprozess
+                dup2(fd[1],1);
+                close(fd[0]);
+                
+                l = listeRest(l);
+                
+                do_execvp(k->u.einfach.wortanzahl, k->u.einfach.worte);
+				
+                if (waitpid(pid, NULL, 0) < 0)
+                        fprintf(stderr, "Fehler bei waitpid()");
+        }
+ 
+        // In den else-Zweig gelangt nur der Kindprozess
+        else {
+			k = listeKopf(l);
+                // Im Kindprozess
+                dup2(fd[0],0);
+                close(fd[1]);
+               
+               do_execvp(k->u.einfach.wortanzahl, k->u.einfach.worte);
+        }
+        
 	return 0;
 }
 
@@ -42,7 +77,7 @@ int aufruf(Kommando k, int forkexec){
   */
      
   if(forkexec){
-    int pid=fork();
+    int pid = fork();
 
     switch (pid){
     case -1:
@@ -112,19 +147,17 @@ int interpretiere(Kommando k, int forkexec){
     return interpretiere_einfach(k, forkexec);
   case K_SEQUENZ:
     {
-      Liste l = k->u.sequenz.liste;
-      while(!listeIstleer(l)){
-	status=interpretiere ((Kommando)listeKopf(l), forkexec);
-	l=listeRest(l);
-      }
+       Liste l = k->u.sequenz.liste;
+       while(!listeIstleer(l)){
+			status = interpretiere((Kommando)listeKopf(l), forkexec);
+			l = listeRest(l);
+		}
     }
     return status;
   case K_PIPE:
 	{
-	  Liste l = k->u.sequenz.liste;
-      while(!listeIstleer(l)){
-		  
-	  }
+       Liste l = k->u.sequenz.liste;
+	   status = interpretiere_pipeline(l, forkexec);
 	}
 	return status;
   default:
