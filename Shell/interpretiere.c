@@ -22,7 +22,7 @@ void do_execvp(int argc, char **args){
   execvp(*args, args);
   perror("exec-Fehler"); 
   fprintf(stderr, "bei Aufruf von \"%s\"\n", *args);
-  exit(1);
+//  exit(1);
 }
 
 int interpretiere_pipeline(Liste l, int forkexec){
@@ -41,23 +41,25 @@ int interpretiere_pipeline(Liste l, int forkexec){
         // Ein Kindprozess wird erstellt.
         if ((pid = fork()) > 0) {
                 // Im Elternprozess
+                
                 dup2(fd[1],1);
                 close(fd[0]);
                 
-                l = listeRest(l);
                 
+			//	interpretiere(k, forkexec);
                 do_execvp(k->u.einfach.wortanzahl, k->u.einfach.worte);
 				
-                if (waitpid(pid, NULL, 0) < 0)
-                        fprintf(stderr, "Fehler bei waitpid()");
+            //    if (waitpid(pid, NULL, 0) < 0)
+             //           fprintf(stderr, "Fehler bei waitpid()");
         }
  
         // In den else-Zweig gelangt nur der Kindprozess
         else {
-			k = listeKopf(l);
+			k = listeKopf(l = listeRest(l));
                 // Im Kindprozess
-                dup2(fd[0],0);
-                close(fd[1]);
+                
+               dup2(fd[0],0);
+               close(fd[1]);
                
                do_execvp(k->u.einfach.wortanzahl, k->u.einfach.worte);
         }
