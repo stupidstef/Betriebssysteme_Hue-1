@@ -8,6 +8,7 @@ O_SRCS += \
 ../kommandos.o \
 ../listen.o \
 ../parser.o \
+../prozess.o \
 ../scanner.o \
 ../shell.o \
 ../utils.o \
@@ -18,6 +19,7 @@ C_SRCS += \
 ../kommandos.c \
 ../listen.c \
 ../parser.c \
+../prozess.c \
 ../scanner.c \
 ../shell.c \
 ../utils.c \
@@ -28,6 +30,7 @@ OBJS += \
 ./kommandos.o \
 ./listen.o \
 ./parser.o \
+./prozess.o \
 ./scanner.o \
 ./shell.o \
 ./utils.o \
@@ -38,6 +41,7 @@ C_DEPS += \
 ./kommandos.d \
 ./listen.d \
 ./parser.d \
+./prozess.d \
 ./scanner.d \
 ./shell.d \
 ./utils.d \
