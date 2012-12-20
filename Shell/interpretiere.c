@@ -49,16 +49,17 @@ int interpretiere_pipeline(Liste l, int forkexec) {
 			if(i > 0) {
 				close(oldPipe[1]);
 				dup2(oldPipe[0], 0);
-				close(oldPipe[0]);
+				/*close(oldPipe[0]);*/
 			}
 
 			/* Wenn es immer noch Kommandos zum ausführen gibt */
 			if(i < pipesCount - 1){
 				close(newPipe[0]);
 				dup2(newPipe[1],1);
-				close(newPipe[1]);
+				/*close(newPipe[1]);*/
 			}
-
+			if (umlenkungen(k))
+				exit(1);
 			/* Ausführen */
 			do_execvp(k->u.einfach.wortanzahl, k->u.einfach.worte);
 		} else {
