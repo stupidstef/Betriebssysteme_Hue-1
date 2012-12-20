@@ -50,9 +50,21 @@ extern int yyparse(void);
 extern int interpretiere(Kommando k, int forkexec);
 
 void endesubprozess (int sig){
+
+	int childPid, childStatus;
+	childPid = waitpid(-1, &childStatus, 0);
+	if(childPid > 0) {
+		printf("PID: %d \n", childPid);
+	}
 }
 
 void init_signalbehandlung(){
+
+	struct sigaction act;
+	act.sa_flags = SA_RESTART | SA_NODEFER;
+	act.sa_flags &= ~SA_RESETHAND;
+	act.sa_handler = endesubprozess;
+	sigaction(SIGCHLD, &act, NULL);
 }
 
 int main(int argc, char *argv[]){

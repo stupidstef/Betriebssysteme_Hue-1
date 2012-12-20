@@ -177,12 +177,14 @@ int aufruf(Kommando k, int forkexec) {
 			abbruch("interner Fehler 001");
 			break; /* sollte nie ausgeführt werden */
 		default:
-			if(k->endeabwarten)
-			/* So einfach geht das hier nicht! */
-			waitpid(pid, &status, 0);
-			if(WEXITSTATUS(status) != 0) {
-				/* printf("Exit status: %d.\n", WEXITSTATUS(status)); */
-				return -1;
+			if(k->endeabwarten) {
+				/* So einfach geht das hier nicht! */
+				waitpid(pid, &status, 0);
+				if(WEXITSTATUS(status) != 0) {
+					/* printf("Exit status: %d.\n", WEXITSTATUS(status)); */
+					return -1;
+				}
+				return 0;
 			}
 			return 0;
 		}

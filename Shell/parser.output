@@ -1,12 +1,12 @@
-Grammar
+Grammatik
 
     0 $accept: Zeile $end
 
-    1 $@1: /* empty */
+    1 $@1: /* leer */
 
     2 Zeile: $@1 Kommando '\n'
     3      | '\n'
-    4      | /* empty */
+    4      | /* leer */
 
     5 Kommando: IF Kommando2 ';' THEN Kommando2 ';' ELSE Kommando2 ';' FI
     6         | IF Kommando2 ';' THEN Kommando2 ';' FI
@@ -33,7 +33,7 @@ Grammar
    20 Stringliste: String
    21            | Stringliste String
 
-   22 Umlenkungen: /* empty */
+   22 Umlenkungen: /* leer */
    23            | Umlenkung Umlenkungen
 
    24 Umlenkung: '>' String
@@ -44,7 +44,7 @@ Grammar
    28       | UNDEF
 
 
-Terminals, with rules where they appear
+Terminale und die Regeln, in denen sie verwendet werden
 
 $end (0) 0
 '\n' (10) 2 3
@@ -67,532 +67,533 @@ STRING (265) 27
 UNDEF (266) 28
 
 
-Nonterminals, with rules where they appear
+Nicht-Terminal und die Regeln, in denen sie verwendet werden
 
 $accept (20)
-    on left: 0
+    auf der linken Seite: 0
 Zeile (21)
-    on left: 2 3 4, on right: 0
+    auf der linken Seite: 2 3 4, auf der rechten Seite: 0
 $@1 (22)
-    on left: 1, on right: 2
+    auf der linken Seite: 1, auf der rechten Seite: 2
 Kommando (23)
-    on left: 5 6 7, on right: 2 19
+    auf der linken Seite: 5 6 7, auf der rechten Seite: 2 19
 Kommando1 (24)
-    on left: 8 9, on right: 7 8
+    auf der linken Seite: 8 9, auf der rechten Seite: 7 8
 Kommando2 (25)
-    on left: 10 11, on right: 5 6 8 9 10
+    auf der linken Seite: 10 11, auf der rechten Seite: 5 6 8 9 10
 Kommando3 (26)
-    on left: 12 13, on right: 10 11 12
+    auf der linken Seite: 12 13, auf der rechten Seite: 10 11 12
 Kommando4 (27)
-    on left: 14 15, on right: 12 13 14
+    auf der linken Seite: 14 15, auf der rechten Seite: 12 13 14
 Kommando5 (28)
-    on left: 16 17, on right: 14 15
+    auf der linken Seite: 16 17, auf der rechten Seite: 14 15
 Kommando6 (29)
-    on left: 18 19, on right: 16 17
+    auf der linken Seite: 18 19, auf der rechten Seite: 16 17
 Stringliste (30)
-    on left: 20 21, on right: 18 21
+    auf der linken Seite: 20 21, auf der rechten Seite: 18 21
 Umlenkungen (31)
-    on left: 22 23, on right: 18 23
+    auf der linken Seite: 22 23, auf der rechten Seite: 18 23
 Umlenkung (32)
-    on left: 24 25 26, on right: 23
+    auf der linken Seite: 24 25 26, auf der rechten Seite: 23
 String (33)
-    on left: 27 28, on right: 20 21 24 25 26
+    auf der linken Seite: 27 28, auf der rechten Seite: 20 21 24 25
+    26
 
 
-state 0
+Zustand 0
 
     0 $accept: . Zeile $end
 
-    '\n'  shift, and go to state 1
+    '\n'  schiebe und gehe zu Zustand 1 über
 
-    $end      reduce using rule 4 (Zeile)
-    $default  reduce using rule 1 ($@1)
+    $end      reduziere mit Regel 4 (Zeile)
+    $default  reduziere mit Regel 1 ($@1)
 
-    Zeile  go to state 2
-    $@1    go to state 3
+    Zeile  gehe zu Zustand 2 über
+    $@1    gehe zu Zustand 3 über
 
 
-state 1
+Zustand 1
 
     3 Zeile: '\n' .
 
-    $default  reduce using rule 3 (Zeile)
+    $default  reduziere mit Regel 3 (Zeile)
 
 
-state 2
+Zustand 2
 
     0 $accept: Zeile . $end
 
-    $end  shift, and go to state 4
+    $end  schiebe und gehe zu Zustand 4 über
 
 
-state 3
+Zustand 3
 
     2 Zeile: $@1 . Kommando '\n'
 
-    IF      shift, and go to state 5
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
-    '('     shift, and go to state 8
+    IF      schiebe und gehe zu Zustand 5 über
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
+    '('     schiebe und gehe zu Zustand 8 über
 
-    Kommando     go to state 9
-    Kommando1    go to state 10
-    Kommando2    go to state 11
-    Kommando3    go to state 12
-    Kommando4    go to state 13
-    Kommando5    go to state 14
-    Kommando6    go to state 15
-    Stringliste  go to state 16
-    String       go to state 17
+    Kommando     gehe zu Zustand 9 über
+    Kommando1    gehe zu Zustand 10 über
+    Kommando2    gehe zu Zustand 11 über
+    Kommando3    gehe zu Zustand 12 über
+    Kommando4    gehe zu Zustand 13 über
+    Kommando5    gehe zu Zustand 14 über
+    Kommando6    gehe zu Zustand 15 über
+    Stringliste  gehe zu Zustand 16 über
+    String       gehe zu Zustand 17 über
 
 
-state 4
+Zustand 4
 
     0 $accept: Zeile $end .
 
-    $default  accept
+    $default  annehmen
 
 
-state 5
+Zustand 5
 
     5 Kommando: IF . Kommando2 ';' THEN Kommando2 ';' ELSE Kommando2 ';' FI
     6         | IF . Kommando2 ';' THEN Kommando2 ';' FI
 
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
-    '('     shift, and go to state 8
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
+    '('     schiebe und gehe zu Zustand 8 über
 
-    Kommando2    go to state 18
-    Kommando3    go to state 12
-    Kommando4    go to state 13
-    Kommando5    go to state 14
-    Kommando6    go to state 15
-    Stringliste  go to state 16
-    String       go to state 17
+    Kommando2    gehe zu Zustand 18 über
+    Kommando3    gehe zu Zustand 12 über
+    Kommando4    gehe zu Zustand 13 über
+    Kommando5    gehe zu Zustand 14 über
+    Kommando6    gehe zu Zustand 15 über
+    Stringliste  gehe zu Zustand 16 über
+    String       gehe zu Zustand 17 über
 
 
-state 6
+Zustand 6
 
    27 String: STRING .
 
-    $default  reduce using rule 27 (String)
+    $default  reduziere mit Regel 27 (String)
 
 
-state 7
+Zustand 7
 
    28 String: UNDEF .
 
-    $default  reduce using rule 28 (String)
+    $default  reduziere mit Regel 28 (String)
 
 
-state 8
+Zustand 8
 
    19 Kommando6: '(' . Kommando ')'
 
-    IF      shift, and go to state 5
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
-    '('     shift, and go to state 8
+    IF      schiebe und gehe zu Zustand 5 über
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
+    '('     schiebe und gehe zu Zustand 8 über
 
-    Kommando     go to state 19
-    Kommando1    go to state 10
-    Kommando2    go to state 11
-    Kommando3    go to state 12
-    Kommando4    go to state 13
-    Kommando5    go to state 14
-    Kommando6    go to state 15
-    Stringliste  go to state 16
-    String       go to state 17
+    Kommando     gehe zu Zustand 19 über
+    Kommando1    gehe zu Zustand 10 über
+    Kommando2    gehe zu Zustand 11 über
+    Kommando3    gehe zu Zustand 12 über
+    Kommando4    gehe zu Zustand 13 über
+    Kommando5    gehe zu Zustand 14 über
+    Kommando6    gehe zu Zustand 15 über
+    Stringliste  gehe zu Zustand 16 über
+    String       gehe zu Zustand 17 über
 
 
-state 9
+Zustand 9
 
     2 Zeile: $@1 Kommando . '\n'
 
-    '\n'  shift, and go to state 20
+    '\n'  schiebe und gehe zu Zustand 20 über
 
 
-state 10
+Zustand 10
 
     7 Kommando: Kommando1 .
 
-    $default  reduce using rule 7 (Kommando)
+    $default  reduziere mit Regel 7 (Kommando)
 
 
-state 11
+Zustand 11
 
     8 Kommando1: Kommando2 . ';' Kommando1
     9          | Kommando2 .
 
-    ';'  shift, and go to state 21
+    ';'  schiebe und gehe zu Zustand 21 über
 
-    $default  reduce using rule 9 (Kommando1)
+    $default  reduziere mit Regel 9 (Kommando1)
 
 
-state 12
+Zustand 12
 
    10 Kommando2: Kommando3 . ANSONSTEN Kommando2
    11          | Kommando3 .
 
-    ANSONSTEN  shift, and go to state 22
+    ANSONSTEN  schiebe und gehe zu Zustand 22 über
 
-    $default  reduce using rule 11 (Kommando2)
+    $default  reduziere mit Regel 11 (Kommando2)
 
 
-state 13
+Zustand 13
 
    12 Kommando3: Kommando4 . UNDDANN Kommando3
    13          | Kommando4 .
 
-    UNDDANN  shift, and go to state 23
+    UNDDANN  schiebe und gehe zu Zustand 23 über
 
-    $default  reduce using rule 13 (Kommando3)
+    $default  reduziere mit Regel 13 (Kommando3)
 
 
-state 14
+Zustand 14
 
    14 Kommando4: Kommando5 . '|' Kommando4
    15          | Kommando5 .
 
-    '|'  shift, and go to state 24
+    '|'  schiebe und gehe zu Zustand 24 über
 
-    $default  reduce using rule 15 (Kommando4)
+    $default  reduziere mit Regel 15 (Kommando4)
 
 
-state 15
+Zustand 15
 
    16 Kommando5: Kommando6 . '&'
    17          | Kommando6 .
 
-    '&'  shift, and go to state 25
+    '&'  schiebe und gehe zu Zustand 25 über
 
-    $default  reduce using rule 17 (Kommando5)
+    $default  reduziere mit Regel 17 (Kommando5)
 
 
-state 16
+Zustand 16
 
    18 Kommando6: Stringliste . Umlenkungen
    21 Stringliste: Stringliste . String
 
-    DATEIANFUEGEN  shift, and go to state 26
-    STRING         shift, and go to state 6
-    UNDEF          shift, and go to state 7
-    '>'            shift, and go to state 27
-    '<'            shift, and go to state 28
+    DATEIANFUEGEN  schiebe und gehe zu Zustand 26 über
+    STRING         schiebe und gehe zu Zustand 6 über
+    UNDEF          schiebe und gehe zu Zustand 7 über
+    '>'            schiebe und gehe zu Zustand 27 über
+    '<'            schiebe und gehe zu Zustand 28 über
 
-    $default  reduce using rule 22 (Umlenkungen)
+    $default  reduziere mit Regel 22 (Umlenkungen)
 
-    Umlenkungen  go to state 29
-    Umlenkung    go to state 30
-    String       go to state 31
+    Umlenkungen  gehe zu Zustand 29 über
+    Umlenkung    gehe zu Zustand 30 über
+    String       gehe zu Zustand 31 über
 
 
-state 17
+Zustand 17
 
    20 Stringliste: String .
 
-    $default  reduce using rule 20 (Stringliste)
+    $default  reduziere mit Regel 20 (Stringliste)
 
 
-state 18
+Zustand 18
 
     5 Kommando: IF Kommando2 . ';' THEN Kommando2 ';' ELSE Kommando2 ';' FI
     6         | IF Kommando2 . ';' THEN Kommando2 ';' FI
 
-    ';'  shift, and go to state 32
+    ';'  schiebe und gehe zu Zustand 32 über
 
 
-state 19
+Zustand 19
 
    19 Kommando6: '(' Kommando . ')'
 
-    ')'  shift, and go to state 33
+    ')'  schiebe und gehe zu Zustand 33 über
 
 
-state 20
+Zustand 20
 
     2 Zeile: $@1 Kommando '\n' .
 
-    $default  reduce using rule 2 (Zeile)
+    $default  reduziere mit Regel 2 (Zeile)
 
 
-state 21
+Zustand 21
 
     8 Kommando1: Kommando2 ';' . Kommando1
 
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
-    '('     shift, and go to state 8
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
+    '('     schiebe und gehe zu Zustand 8 über
 
-    Kommando1    go to state 34
-    Kommando2    go to state 11
-    Kommando3    go to state 12
-    Kommando4    go to state 13
-    Kommando5    go to state 14
-    Kommando6    go to state 15
-    Stringliste  go to state 16
-    String       go to state 17
+    Kommando1    gehe zu Zustand 34 über
+    Kommando2    gehe zu Zustand 11 über
+    Kommando3    gehe zu Zustand 12 über
+    Kommando4    gehe zu Zustand 13 über
+    Kommando5    gehe zu Zustand 14 über
+    Kommando6    gehe zu Zustand 15 über
+    Stringliste  gehe zu Zustand 16 über
+    String       gehe zu Zustand 17 über
 
 
-state 22
+Zustand 22
 
    10 Kommando2: Kommando3 ANSONSTEN . Kommando2
 
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
-    '('     shift, and go to state 8
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
+    '('     schiebe und gehe zu Zustand 8 über
 
-    Kommando2    go to state 35
-    Kommando3    go to state 12
-    Kommando4    go to state 13
-    Kommando5    go to state 14
-    Kommando6    go to state 15
-    Stringliste  go to state 16
-    String       go to state 17
+    Kommando2    gehe zu Zustand 35 über
+    Kommando3    gehe zu Zustand 12 über
+    Kommando4    gehe zu Zustand 13 über
+    Kommando5    gehe zu Zustand 14 über
+    Kommando6    gehe zu Zustand 15 über
+    Stringliste  gehe zu Zustand 16 über
+    String       gehe zu Zustand 17 über
 
 
-state 23
+Zustand 23
 
    12 Kommando3: Kommando4 UNDDANN . Kommando3
 
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
-    '('     shift, and go to state 8
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
+    '('     schiebe und gehe zu Zustand 8 über
 
-    Kommando3    go to state 36
-    Kommando4    go to state 13
-    Kommando5    go to state 14
-    Kommando6    go to state 15
-    Stringliste  go to state 16
-    String       go to state 17
+    Kommando3    gehe zu Zustand 36 über
+    Kommando4    gehe zu Zustand 13 über
+    Kommando5    gehe zu Zustand 14 über
+    Kommando6    gehe zu Zustand 15 über
+    Stringliste  gehe zu Zustand 16 über
+    String       gehe zu Zustand 17 über
 
 
-state 24
+Zustand 24
 
    14 Kommando4: Kommando5 '|' . Kommando4
 
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
-    '('     shift, and go to state 8
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
+    '('     schiebe und gehe zu Zustand 8 über
 
-    Kommando4    go to state 37
-    Kommando5    go to state 14
-    Kommando6    go to state 15
-    Stringliste  go to state 16
-    String       go to state 17
+    Kommando4    gehe zu Zustand 37 über
+    Kommando5    gehe zu Zustand 14 über
+    Kommando6    gehe zu Zustand 15 über
+    Stringliste  gehe zu Zustand 16 über
+    String       gehe zu Zustand 17 über
 
 
-state 25
+Zustand 25
 
    16 Kommando5: Kommando6 '&' .
 
-    $default  reduce using rule 16 (Kommando5)
+    $default  reduziere mit Regel 16 (Kommando5)
 
 
-state 26
+Zustand 26
 
    25 Umlenkung: DATEIANFUEGEN . String
 
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
 
-    String  go to state 38
+    String  gehe zu Zustand 38 über
 
 
-state 27
+Zustand 27
 
    24 Umlenkung: '>' . String
 
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
 
-    String  go to state 39
+    String  gehe zu Zustand 39 über
 
 
-state 28
+Zustand 28
 
    26 Umlenkung: '<' . String
 
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
 
-    String  go to state 40
+    String  gehe zu Zustand 40 über
 
 
-state 29
+Zustand 29
 
    18 Kommando6: Stringliste Umlenkungen .
 
-    $default  reduce using rule 18 (Kommando6)
+    $default  reduziere mit Regel 18 (Kommando6)
 
 
-state 30
+Zustand 30
 
    23 Umlenkungen: Umlenkung . Umlenkungen
 
-    DATEIANFUEGEN  shift, and go to state 26
-    '>'            shift, and go to state 27
-    '<'            shift, and go to state 28
+    DATEIANFUEGEN  schiebe und gehe zu Zustand 26 über
+    '>'            schiebe und gehe zu Zustand 27 über
+    '<'            schiebe und gehe zu Zustand 28 über
 
-    $default  reduce using rule 22 (Umlenkungen)
+    $default  reduziere mit Regel 22 (Umlenkungen)
 
-    Umlenkungen  go to state 41
-    Umlenkung    go to state 30
+    Umlenkungen  gehe zu Zustand 41 über
+    Umlenkung    gehe zu Zustand 30 über
 
 
-state 31
+Zustand 31
 
    21 Stringliste: Stringliste String .
 
-    $default  reduce using rule 21 (Stringliste)
+    $default  reduziere mit Regel 21 (Stringliste)
 
 
-state 32
+Zustand 32
 
     5 Kommando: IF Kommando2 ';' . THEN Kommando2 ';' ELSE Kommando2 ';' FI
     6         | IF Kommando2 ';' . THEN Kommando2 ';' FI
 
-    THEN  shift, and go to state 42
+    THEN  schiebe und gehe zu Zustand 42 über
 
 
-state 33
+Zustand 33
 
    19 Kommando6: '(' Kommando ')' .
 
-    $default  reduce using rule 19 (Kommando6)
+    $default  reduziere mit Regel 19 (Kommando6)
 
 
-state 34
+Zustand 34
 
     8 Kommando1: Kommando2 ';' Kommando1 .
 
-    $default  reduce using rule 8 (Kommando1)
+    $default  reduziere mit Regel 8 (Kommando1)
 
 
-state 35
+Zustand 35
 
    10 Kommando2: Kommando3 ANSONSTEN Kommando2 .
 
-    $default  reduce using rule 10 (Kommando2)
+    $default  reduziere mit Regel 10 (Kommando2)
 
 
-state 36
+Zustand 36
 
    12 Kommando3: Kommando4 UNDDANN Kommando3 .
 
-    $default  reduce using rule 12 (Kommando3)
+    $default  reduziere mit Regel 12 (Kommando3)
 
 
-state 37
+Zustand 37
 
    14 Kommando4: Kommando5 '|' Kommando4 .
 
-    $default  reduce using rule 14 (Kommando4)
+    $default  reduziere mit Regel 14 (Kommando4)
 
 
-state 38
+Zustand 38
 
    25 Umlenkung: DATEIANFUEGEN String .
 
-    $default  reduce using rule 25 (Umlenkung)
+    $default  reduziere mit Regel 25 (Umlenkung)
 
 
-state 39
+Zustand 39
 
    24 Umlenkung: '>' String .
 
-    $default  reduce using rule 24 (Umlenkung)
+    $default  reduziere mit Regel 24 (Umlenkung)
 
 
-state 40
+Zustand 40
 
    26 Umlenkung: '<' String .
 
-    $default  reduce using rule 26 (Umlenkung)
+    $default  reduziere mit Regel 26 (Umlenkung)
 
 
-state 41
+Zustand 41
 
    23 Umlenkungen: Umlenkung Umlenkungen .
 
-    $default  reduce using rule 23 (Umlenkungen)
+    $default  reduziere mit Regel 23 (Umlenkungen)
 
 
-state 42
+Zustand 42
 
     5 Kommando: IF Kommando2 ';' THEN . Kommando2 ';' ELSE Kommando2 ';' FI
     6         | IF Kommando2 ';' THEN . Kommando2 ';' FI
 
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
-    '('     shift, and go to state 8
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
+    '('     schiebe und gehe zu Zustand 8 über
 
-    Kommando2    go to state 43
-    Kommando3    go to state 12
-    Kommando4    go to state 13
-    Kommando5    go to state 14
-    Kommando6    go to state 15
-    Stringliste  go to state 16
-    String       go to state 17
+    Kommando2    gehe zu Zustand 43 über
+    Kommando3    gehe zu Zustand 12 über
+    Kommando4    gehe zu Zustand 13 über
+    Kommando5    gehe zu Zustand 14 über
+    Kommando6    gehe zu Zustand 15 über
+    Stringliste  gehe zu Zustand 16 über
+    String       gehe zu Zustand 17 über
 
 
-state 43
+Zustand 43
 
     5 Kommando: IF Kommando2 ';' THEN Kommando2 . ';' ELSE Kommando2 ';' FI
     6         | IF Kommando2 ';' THEN Kommando2 . ';' FI
 
-    ';'  shift, and go to state 44
+    ';'  schiebe und gehe zu Zustand 44 über
 
 
-state 44
+Zustand 44
 
     5 Kommando: IF Kommando2 ';' THEN Kommando2 ';' . ELSE Kommando2 ';' FI
     6         | IF Kommando2 ';' THEN Kommando2 ';' . FI
 
-    ELSE  shift, and go to state 45
-    FI    shift, and go to state 46
+    ELSE  schiebe und gehe zu Zustand 45 über
+    FI    schiebe und gehe zu Zustand 46 über
 
 
-state 45
+Zustand 45
 
     5 Kommando: IF Kommando2 ';' THEN Kommando2 ';' ELSE . Kommando2 ';' FI
 
-    STRING  shift, and go to state 6
-    UNDEF   shift, and go to state 7
-    '('     shift, and go to state 8
+    STRING  schiebe und gehe zu Zustand 6 über
+    UNDEF   schiebe und gehe zu Zustand 7 über
+    '('     schiebe und gehe zu Zustand 8 über
 
-    Kommando2    go to state 47
-    Kommando3    go to state 12
-    Kommando4    go to state 13
-    Kommando5    go to state 14
-    Kommando6    go to state 15
-    Stringliste  go to state 16
-    String       go to state 17
+    Kommando2    gehe zu Zustand 47 über
+    Kommando3    gehe zu Zustand 12 über
+    Kommando4    gehe zu Zustand 13 über
+    Kommando5    gehe zu Zustand 14 über
+    Kommando6    gehe zu Zustand 15 über
+    Stringliste  gehe zu Zustand 16 über
+    String       gehe zu Zustand 17 über
 
 
-state 46
+Zustand 46
 
     6 Kommando: IF Kommando2 ';' THEN Kommando2 ';' FI .
 
-    $default  reduce using rule 6 (Kommando)
+    $default  reduziere mit Regel 6 (Kommando)
 
 
-state 47
+Zustand 47
 
     5 Kommando: IF Kommando2 ';' THEN Kommando2 ';' ELSE Kommando2 . ';' FI
 
-    ';'  shift, and go to state 48
+    ';'  schiebe und gehe zu Zustand 48 über
 
 
-state 48
+Zustand 48
 
     5 Kommando: IF Kommando2 ';' THEN Kommando2 ';' ELSE Kommando2 ';' . FI
 
-    FI  shift, and go to state 49
+    FI  schiebe und gehe zu Zustand 49 über
 
 
-state 49
+Zustand 49
 
     5 Kommando: IF Kommando2 ';' THEN Kommando2 ';' ELSE Kommando2 ';' FI .
 
-    $default  reduce using rule 5 (Kommando)
+    $default  reduziere mit Regel 5 (Kommando)
